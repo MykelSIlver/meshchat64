@@ -66,20 +66,21 @@ Requires [ACME](https://sourceforge.net/projects/acme-crossass/) 0.97.
 
 ```bash
 cd src
-acme -f cbm -o ../build/meshchat64.prg meshchat64.asm
+acme -f cbm -o meshchat64.prg meshchat64.asm
 ```
 
 `meshchat64.asm` `!source`s the five includes in `src/`
 (`comb_keepalive.inc`, `comb_table.inc`, `fastsha_main.inc`, `qsq_tables.inc`,
 `sha512_const_ml.inc`). The result, `meshchat64.prg`, loads on a C64/U64.
 
-> The shipped `build/meshchat64.prg` is a **reference build with placeholder
-> relay settings** — set your own relay first (below) and rebuild.
+> **No prebuilt `.prg` is shipped.** The relay address is compiled into the
+> binary, so a prebuilt one would only dial *someone else's* relay. Set your
+> own relay (below) and build it yourself — it takes a couple of seconds.
 
 ## Configure your relay (required)
 
 The relay address is compiled into the binary. Edit the two `RELAY CONFIG`
-lines in `src/meshchat64.asm` and rebuild:
+lines in `src/meshchat64.asm`, then build (see above):
 
 - `STR_ATDT` — what the C64 dials: the relay's plain-`ws://` `host:port`
   (or your nginx door if the relay is wss-only), default
