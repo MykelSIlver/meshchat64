@@ -775,7 +775,7 @@ fhit_zo
   LDA $ce1c : STA $ceff
   RTS
 PBKDF2_FAST
-  LDA #$31 : STA $0428   ; '1' PBKDF2_FAST started (no banking)
+  LDA #$31 : STA $0428   ; '1' PBKDF2_FAST gestart (geen banking)
   JSR TBLINIT
   LDX #0
 pf_ck

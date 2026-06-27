@@ -8227,7 +8227,7 @@ SH_BLKL
         BNE SH_DOB
         JMP SH_FIN
 SH_DOB
-        JSR SHA_BLOCK
+        JSR PW_SHA
         ; BP += 128
         LDA BP
         CLC
@@ -8319,7 +8319,7 @@ ML_FILL txa : asl : asl : tay
         ; ================= LOOP 1 : i=63..32 =================
         lda #252 : sta IOFF
 ML_OUT
-        ldx IOFF : jsr LDCELL
+        ldx IOFF : jsr PW_LDC
         +mov32 XI, ACC
         +zero32 CRY
         lda IOFF : sec : sbc #128 : sta JOFF
@@ -9378,7 +9378,7 @@ WSM2_SG LDA SIG_OUT,X
 WSM2_SGD
         LDA #$5D : JSR JOUT_EMIT
         LDA #$7D : JSR JOUT_EMIT
-        JSR WS_SEND_EXT
+        JSR MSG_SEND_GATE
         RTS
 
 ; ================================================================
@@ -10102,3 +10102,4 @@ PD_WRAP
 PDW_GO
         JMP POINT_DBL           ; original comb step (tail-call)
 
+!source "meshchat64_sendfix.inc"

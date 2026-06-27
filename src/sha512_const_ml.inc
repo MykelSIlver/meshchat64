@@ -1,4 +1,4 @@
-; SHA-512 constants (little-endian 8-byte words, byte0=LSB)
+; SHA-512 constanten (little-endian 8-byte woorden, byte0=LSB)
 SHA_IV
         !byte $08,$c9,$bc,$f3,$67,$e6,$09,$6a
         !byte $3b,$a7,$ca,$84,$85,$ae,$67,$bb
