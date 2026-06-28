@@ -39,6 +39,6 @@ Third-party references
 
 To apply the GPL header to individual source files, add near the top:
 
-    ; MeshChat64 - <file description>
+    ; MeshChat64 - Commodore 64 client for MeshChat
     ; Copyright (C) 2026 MykelSIlver
     ; Licensed under GNU GPL v3. See LICENSE. Based on saint-cc/meshchat.
