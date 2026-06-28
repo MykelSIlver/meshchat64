@@ -113,6 +113,8 @@ Working buffers live in always-available RAM; the ACIA receiver is NMI-driven
 into a ring buffer. See [`docs/meshchat_protocol_v1.md`](docs/meshchat_protocol_v1.md)
 for the wire protocol.
 
+See [docs/MEMORY_MAP.md](docs/MEMORY_MAP.md) for the full memory layout, the signed-comb and Karatsuba internals.
+
 ## Verification
 
 Every cryptographic primitive was built standalone and checked **byte-exact**
