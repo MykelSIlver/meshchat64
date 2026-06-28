@@ -69,9 +69,12 @@ cd src
 acme -f cbm -o meshchat64.prg meshchat64.asm
 ```
 
-`meshchat64.asm` `!source`s the five includes in `src/`
-(`comb_keepalive.inc`, `comb_table.inc`, `fastsha_main.inc`, `qsq_tables.inc`,
-`sha512_const_ml.inc`). The result, `meshchat64.prg`, loads on a C64/U64.
+`meshchat64.asm` needs **nine** include files alongside it in `src/`:
+`comb_keepalive.inc`, `comb_table.inc`, `fastsha_main.inc`, `karatsuba.inc`,
+`meshchat64_combsigned.inc`, `meshchat64_fastsq.inc`, `meshchat64_sendfix.inc`,
+`qsq_tables.inc`, `sha512_const_ml.inc`. Eight are `!source`d directly by
+`meshchat64.asm`; `comb_keepalive.inc` pulls in `comb_table.inc`. The result,
+`meshchat64.prg`, loads on a C64/U64.
 
 > **No prebuilt `.prg` is shipped.** The relay address is compiled into the
 > binary, so a prebuilt one would only dial *someone else's* relay. Set your
