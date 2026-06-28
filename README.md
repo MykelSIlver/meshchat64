@@ -100,7 +100,7 @@ is reachable only via `wss://`, an optional plain-`ws://` door for the C64 is
 | Step                         | Ultimate-64 (turbo) | Stock C64 (1 MHz) |
 |------------------------------|---------------------|-------------------|
 | Login (PBKDF2 100k + keys)   | ~40 s               | ~7 min            |
-| Sign + send one message      | ~3 s                | minutes           |
+| Sign + send one message      | ~ 2 s               | minutes           |
 | Receive a message            | near-instant        | near-instant      |
 
 Sending is the slow part because of Ed25519 signing; receiving does not sign.
