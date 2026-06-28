@@ -147,7 +147,7 @@ ML_CNE  STX KDFIN_NAMELEN
         LDA #>STR_PASS_P
         STA $FC
         JSR PRINT_STR_FB
-        LDA #$05        ; wit
+        LDA #$05        ; White
         JSR PRINT_CHR
         JSR INPUT_PASS
 
@@ -277,7 +277,7 @@ MC_CHAT_SCREEN
         LDA #>STR_ID_LBL
         STA $FC
         JSR PRINT_STR_FB
-        LDA #$05        ; wit
+        LDA #$05        ; White
         JSR PRINT_CHR
 
         ; own publicId (16 base64url chars)
@@ -323,7 +323,7 @@ MCL_NME
         LDA #>STR_PFX
         STA $FC
         JSR PRINT_STR_FB
-        LDA #$05        ; wit
+        LDA #$05        ; White
         JSR PRINT_CHR
 
         ; read message (INPUT_LINE converts PETSCII->ASCII: item 10A)
@@ -4370,7 +4370,7 @@ PRM_TOOLONG
         JSR PRINT_STR_FB
         LDA #$0D
         JSR PRINT_CHR
-        LDA #$05            ; wit
+        LDA #$05            ; White
         JSR PRINT_CHR
         LDA #1
         STA MSG_SHOWN
@@ -4398,7 +4398,7 @@ PRM_BADTAG
 PRM_BT_NOVF
         LDA #$0D
         JSR PRINT_CHR
-        LDA #$05            ; wit
+        LDA #$05            ; White
         JSR PRINT_CHR
         LDA #1
         STA MSG_SHOWN       ; redraw trigger (warning is on screen)
@@ -4427,7 +4427,7 @@ RDI_NME
         LDA #>STR_PFX
         STA $FC
         JSR PRINT_STR_FB
-        LDA #$05            ; wit
+        LDA #$05            ; White
         JSR PRINT_CHR
         LDX #0
 RDI_TL  CPX RDI_CNT
@@ -9049,7 +9049,7 @@ WS_AUTH256
         JSR PRINT_STR_FB
         LDA #$0D
         JSR PRINT_CHR
-        LDA #$05            ; wit
+        LDA #$05            ; White
         JSR PRINT_CHR
 
         ; -- step 1: auth_init (bits:256, 32-byte enc_key) --
@@ -9245,7 +9245,7 @@ WA2_OK
         JSR PRINT_STR_FB
         LDA #$0D
         JSR PRINT_CHR
-        LDA #$05            ; wit
+        LDA #$05            ; White
         JSR PRINT_CHR
         CLC
         RTS
@@ -9259,7 +9259,7 @@ WA2_FAIL
         JSR PRINT_STR_FB
         LDA #$0D
         JSR PRINT_CHR
-        LDA #$05            ; wit
+        LDA #$05            ; White
         JSR PRINT_CHR
         SEC
         RTS
@@ -9767,7 +9767,7 @@ SS_GO   JSR SHAREABLE_BUILD256
         JSR PRINT_STR_FB
         LDA #$0D
         JSR PRINT_CHR
-        LDA #$05            ; wit
+        LDA #$05            ; White
         JSR PRINT_CHR
         LDA #<SHARE_STR
         STA $FB
@@ -9984,7 +9984,7 @@ MC_PEER_SETUP256
         LDA #>STR_PEER_P
         STA $FC
         JSR PRINT_STR_FB
-        LDA #$05            ; wit
+        LDA #$05            ; White
         JSR PRINT_CHR
         JSR INPUT_LINE      ; -> INP_BUF, INP_LEN
         LDA INP_LEN
