@@ -1,0 +1,19 @@
+# Build outputs — no prebuilt binaries are shipped (relay address is compiled in)
+*.prg
+*.o
+*.sym
+
+# Generated comb tables — regenerate with verify/gen_comb_table.py
+combtable*.bin
+combtable*.prg
+verify/*.bin
+
+# Disk images used to stage the REU table / program
+*.d64
+*.d71
+*.d81
+*.g64
+
+# Python
+__pycache__/
+*.pyc

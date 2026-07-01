@@ -44,6 +44,39 @@
         JSR FPGA_SETTLE         ; Bug 3 fix: 50ms real-time via CIA2
 
         ; 128-bit path removed: boot straight to 256-bit login.
+!ifdef REU {
+        ; --- ensure comb table is in REU before the first scalar-mult ---
+        JSR REU_CHECK_MARK          ; table already present (warm reset)?
+        BCS REU_LOADED              ; yes -> skip disk load entirely
+        JSR REU_DETECT
+        BCS REU_PRESENT
+        LDX #0                       ; no working REU: message + halt
+REU_MSGL LDA REU_MSG,X
+        BEQ REU_HALT
+        JSR $FFD2
+        INX
+        BNE REU_MSGL
+REU_HALT JMP REU_HALT
+REU_PRESENT
+        LDA #REU_FN_END-REU_FN       ; SETNAM(len, addr)
+        LDX #<REU_FN
+        LDY #>REU_FN
+        JSR $FFBD
+        LDA #2                       ; SETLFS(LFN=2, dev=8, sec=0)
+        LDX #8
+        LDY #0
+        JSR $FFBA
+        JSR REU_LOAD_TABLE           ; C=1 on I/O error (e.g. file missing)
+        BCC REU_LOADED
+        LDX #0                       ; load failed: message + halt
+REU_EML LDA REU_ERR_MSG,X
+        BEQ REU_EHALT
+        JSR $FFD2
+        INX
+        BNE REU_EML
+REU_EHALT JMP REU_EHALT
+REU_LOADED
+}
         JSR MC_LOGIN
 
         ; initialise message counter for GCM nonce uniqueness
@@ -9908,7 +9941,16 @@ MPS_DEC JSR B64URL_DECODE43 ; INP_BUF[0:43] -> KEY_PEER256 ; C=1 error
 MPS_OK  JSR COMPUTE_PEER_ID256
         RTS
 
+!ifdef REU {
+!source "reu_comb.inc"
+!source "reu_loader.inc"
+REU_FN   !text "COMBTABLE"          ; companion table file on the mounted disk
+REU_FN_END
+REU_MSG  !byte 13 : !text "REU REQUIRED FOR THIS BUILD" : !byte 13,0
+REU_ERR_MSG !byte 13 : !text "TABLE LOAD FAILED - PUT COMBTABLE ON SD" : !byte 13,0
+} else {
 !source "comb_keepalive.inc"
+}
 
 !source "qsq_tables.inc"
 
@@ -9990,4 +10032,6 @@ PDW_GO
 !source "meshchat64_sendfix.inc"
 !source "meshchat64_fastsq.inc"
 
+!ifndef REU {
 !source "meshchat64_combsigned.inc"
+}

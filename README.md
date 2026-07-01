@@ -80,6 +80,21 @@ acme -f cbm -o meshchat64.prg meshchat64.asm
 > binary, so a prebuilt one would only dial *someone else's* relay. Set your
 > own relay (below) and build it yourself — it takes a couple of seconds.
 
+### Optional: REU-accelerated signing
+
+An optional build variant moves the comb scalar-multiplication table into a
+**RAM Expansion Unit** and fetches it by DMA, roughly halving the signing-side
+scalar multiply (and freeing 2 KB of C64 RAM). It is entirely behind
+`!ifdef REU`, so the default build above is byte-for-byte unchanged.
+
+```bash
+acme -f cbm -DREU=1 -DREU_T=12 -o meshchat64_reu.prg meshchat64.asm
+```
+
+This needs `reu_comb.inc` + `reu_loader.inc` (in `src/`) and a companion table
+file on a mounted disk. Full walkthrough — table generation, disk staging, the
+filename-case gotcha, and measured speed — is in [`docs/REU.md`](docs/REU.md).
+
 ## Configure your relay (required)
 
 The relay address is compiled into the binary. Edit the two `RELAY CONFIG`
@@ -106,6 +121,10 @@ is reachable only via `wss://`, an optional plain-`ws://` door for the C64 is
 Sending is the slow part because of Ed25519 signing; receiving does not sign.
 During a long sign the C64 keeps the relay alive with woven-in WebSocket pongs,
 so the connection does not time out.
+
+The optional [REU build](docs/REU.md) cuts the scalar-multiplication step
+substantially — on a stock 1 MHz Ultimate-64, sending one message drops from
+**~2:26 to ~1:34** with the 12-tooth (128 KB) table.
 
 ## Architecture (short)
 
